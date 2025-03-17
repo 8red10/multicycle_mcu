@@ -15,7 +15,7 @@ A multicycle MCU capable of running assembly programs based on the 32-bit RISC-V
 
 <div align='center'/>
 
-<img src="images/mcu_architecture.png" alt="mcu architecture diagram" width="600">
+<img src="images/mcu_architecture.png" alt="mcu architecture diagram" width="800">
 
 **Figure 1.** MCU architecture with modules and connections.
 
@@ -26,7 +26,7 @@ A multicycle MCU capable of running assembly programs based on the 32-bit RISC-V
 
 <div align='center'>
 
-<img src="images/memory_map.png" alt="mcu architecture diagram" width="200">
+<img src="images/memory_map.png" alt="memory map" width="300">
 
 **Figure 2.** Memory address range the MCU was designed to utilize.
 
@@ -58,7 +58,31 @@ A multicycle MCU capable of running assembly programs based on the 32-bit RISC-V
 ### Module Descriptions
 
 OTTER_wrapper.sv
-- asdfasdf
+- Top level wrapper module for the MCU to help interface with IO via MMIO. 
+
+clock_divider.sv
+- Divides the input clock to output a slow clock. The MAX_COUNT parameter enables this module to output a variable frequency clock.
+
+OTTER_mcu.sv
+- Assembles modules into a cohesive unit that can process RISC-V 32-bit assembly instructions.
+
+OTTER_pc.sv
+- Program counter module for the OTTER.
+
+OTTER_mem_byte.sv
+multicycle_test_all.mem
+OTTER_register_file.sv
+OTTER_cu_fsm.sv
+OTTER_cu_decoder.sv
+OTTER_alu.sv
+OTTER_value_gen.sv
+mux421.sv
+mux221.sv
+seven_segment_display.sv
+hex2bcd.sv
+cathode_driver.sv
+debounce_button.sv
+basys3constraints.xdc
 
 
 ## Acknowledegments
