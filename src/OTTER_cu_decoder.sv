@@ -12,19 +12,12 @@
 // Revision 0.01 - File Created
 // Additional Comments:
 //      - code is adapted from my 2022 CPE233 version
-//      - commented out interrupt functionality
-//      - commented out lines 56-57, not sure their purpose
-//      - check the 'now yes' status if working ok - all set and fixedd
-//      - rearranged some if statements formatting, hoping is ok
-//      - rf_wr_sel output value 1 is for interrupts only, doesn't have any
-//          other use
 //////////////////////////////////////////////////////////////////////////////////
 
 module OTTER_cu_decoder(
     input   [31:0] rs1,
     input   [31:0] rs2,
     input   [31:0] ir,
-    //   input intr_taken,
     output  logic [3:0] alu_fun,
     output  logic alu_srcA,
     output  logic [1:0] alu_srcB,
@@ -50,23 +43,11 @@ module OTTER_cu_decoder(
         STORE   = 7'b0100011, // s type
         OP_IMM  = 7'b0010011, // i type
         OP      = 7'b0110011  // r type
-        //       CSR     = 7'b1110011  // i type but doesn't really use 
     } opcode_t;
-    // need this (below) ?
-//    opcode_t OPCODE;
-//    assign OPCODE = opcode_t'(CU_OPCODE);
 
     // Decoder assigns output values based on instruction opcode
     always_comb
     begin
-//       if (intr_taken) begin                    //if interupt when allowed
-//           alu_fun      = 4'b1111;  // don't care b/c not writing to reg or mem
-//           alu_srcA     = 0;        // ALU input A
-//           alu_srcB     = 1;        // i type
-//           rf_wr_sel    = 1;        // CSR reg output
-//           pc_source    = 4;        // mtvec
-//       end
-//       else begin                               //else continue normal combinatorial
         case (ir[6:0]) // case based on opcode
             LUI:                           
             begin
@@ -205,18 +186,6 @@ module OTTER_cu_decoder(
                         alu_fun = 4'b0000; // copy
                 endcase
             end
-            //           CSR: // i type
-            //               begin
-            //               alu_fun = 4'b1001;   // pass through
-            //               alu_srcA = 0;
-            //               alu_srcB = 1;        // i type
-            //               rf_wr_sel = 1;       // CSR reg out
-            //               if (func == 3'b001) begin
-            //                   pc_source = 0;   // pc_next
-            //               end else begin
-            //                   pc_source = 5;   // mepc
-            //               end
-            //               end
             default:
             begin
                 alu_fun = 4'b1111;
@@ -226,6 +195,5 @@ module OTTER_cu_decoder(
                 rf_wr_sel = 0;
             end
         endcase // case for decoding opcode
-        //       end // if statement for interrupt handling
     end // always_comb block for assigning outputs based on opcode
 endmodule

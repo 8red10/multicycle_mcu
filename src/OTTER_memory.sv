@@ -51,9 +51,6 @@
     (* ram_decomp = "power" *) logic [31:0] memory [0:2**ACTUAL_WIDTH-1];
     
     initial begin
-//        $readmemh("otter_memory.mem", memory, 0, 2**ACTUAL_WIDTH-1); // old program
-//        $readmemh("multicycle_test000.mem", memory, 0, 2**ACTUAL_WIDTH-1); // MMIO basics
-//        $readmemh("multicycle_test001.mem", memory, 0, 2**ACTUAL_WIDTH-1); // RF basics
         $readmemh("multicycle_test_all.mem", memory, 0, 2**ACTUAL_WIDTH-1); // MMIO basics
     end 
     

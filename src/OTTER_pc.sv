@@ -11,7 +11,6 @@
 // Revision 0.01 - File Created
 // Additional Comments:
 //      - code is adapted from my 2022 CPE233 version
-//      - commented out interrupt functionality
 //////////////////////////////////////////////////////////////////////////////////
 
 module OTTER_pc(
@@ -19,8 +18,6 @@ module OTTER_pc(
     input [31:0] jalr,
     input [31:0] jal,
     input [31:0] branch,
-//    input [31:0] mtvec,
-//    input [31:0] mepc,
     input [2:0] pc_source,
     input reset,
     input pc_write,
@@ -49,8 +46,8 @@ module OTTER_pc(
 			1: pc_next <= jalr;
 			2: pc_next <= branch;
 			3: pc_next <= jal;
-			4: pc_next <= pc + 4; //mtvec;
-			5: pc_next <= pc + 4; //mepc;
+			4: pc_next <= pc + 4; 
+			5: pc_next <= pc + 4; 
 			default:
 				pc_next <= pc + 4;
         endcase

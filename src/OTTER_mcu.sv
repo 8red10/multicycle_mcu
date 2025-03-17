@@ -29,12 +29,10 @@
 // Revision 0.01 - File Created
 // Additional Comments:
 //      - code is adapted from my 2022 CPE 233 version
-//      - commented out interrupt functionality
 //////////////////////////////////////////////////////////////////////////////////
 
 module OTTER_mcu(
     input CLK, 
-//    input INTR,
     input RST,
     input [31:0] IOBUS_IN,
     output [31:0] IOBUS_OUT, 
@@ -52,7 +50,7 @@ module OTTER_mcu(
     logic ERR;
     
     // rf_mux connecting variables
-    logic [31:0] pc_4, mem_dout2, rf_wd; //,CSR_reg;
+    logic [31:0] pc_4, mem_dout2, rf_wd;
     logic [1:0] rf_wr_sel;
     
     // Register file connecting variables
@@ -68,23 +66,9 @@ module OTTER_mcu(
     // Value generator connecting variables
     logic [31:0] itype_imm, utype_imm, stype_imm, branch_pc, jal_pc, jalr_pc;
     
-//    //CSR connecting variables
-//    logic [31:0] mtvec, mepc;
-//    logic csr_mie, csr_write, intr_taken;
-    
-//    //FSM interupt connecting variables
-//    logic intr_allowed;
-//    assign intr_allowed = INTR & csr_mie;
-    
-//    //CSR
-//    CSR csr ( .CLK(CLK), .RST(RST), .INT_TAKEN(intr_taken), .ADDR(ir[31:20]), .PC(pc),
-//                .WD(alu_out), .WR_EN(csr_write), .RD(CSR_reg), .CSR_MEPC(mepc),
-//                .CSR_MTVEC(mtvec), .CSR_MIE(csr_mie) );
-    
     // Program counter module includes pc_source mux inside
     OTTER_pc program_counter ( .clk(CLK), .jalr(jalr_pc), .jal(jal_pc), 
         .branch(branch_pc), .pc_source(pc_source), .reset(RST), .pc_write(pc_write), 
-//        .mtvec(mtvec), .mepc(mepc), 
         .count(pc), .count_4(pc_4) );
 
     // Memory module port connections taken in as parameter inputs
@@ -104,13 +88,11 @@ module OTTER_mcu(
     
     // Control unit fsm module
     OTTER_cu_fsm cu_fsm ( .clk(CLK), .rst(RST), .ir(ir[6:0]), .func(ir[14:12]),
-//        .INTR(intr_allowed), .csrWrite(csr_write), .intrTaken(intr_taken)
         .pcWrite(pc_write), .regWrite(rf_write), .memWrite(mem_write), 
         .memRead1(mem_read1), .memRead2(mem_read2) );
     
     // Control unit decoder module
     OTTER_cu_decoder cu_decoder ( .rs1(rf_dout1), .rs2(rf_dout2), .ir(ir), 
-//        .intr_taken(intr_taken),
         .alu_fun(alu_fun), .alu_srcA(alu_srcA_sel), .alu_srcB(alu_srcB_sel),
         .pc_source(pc_source), .rf_wr_sel(rf_wr_sel) );
     

@@ -29,12 +29,10 @@
 // Additional Comments:
 //      - adapted from my 2022 CPE 233 version
 //      - originally adapted from Paul Hummel and Joseph Callenes
-//      - commented out all interrupt functionality
 //////////////////////////////////////////////////////////////////////////////////
 
 module OTTER_wrapper(
     input CLK,
-//    input BTNL, // was for interrupt
     input BTNC,
     input logic [15:0] SWITCHES,
     output logic [15:0] LEDS,
@@ -54,14 +52,12 @@ module OTTER_wrapper(
     logic [15:0] SSEG;
     logic [31:0] IOBUS_out, IOBUS_in, IOBUS_addr;
     logic IOBUS_wr;
-//    logic s_interrupt, btn_int;
     
     // Clock divider module to divide input clock from 100 MHz to 50 MHz
     clock_divider # (1) mcu_clock_div ( .clk(CLK), .sclk(sclk) );
     
     // OTTER MCU module
     OTTER_mcu mcu ( .CLK(sclk), .RST(mcu_reset), .IOBUS_IN(IOBUS_in),
-//        .INTR(s_interrupt), 
         .IOBUS_OUT(IOBUS_out), .IOBUS_ADDR(IOBUS_addr), .IOBUS_WR(IOBUS_wr) );
     
     // Seven segment display module
@@ -94,7 +90,5 @@ module OTTER_wrapper(
             default:        IOBUS_in        = 32'b0;
         endcase
     end
-
-//    assign s_interrupt = btn_int;
     
 endmodule
