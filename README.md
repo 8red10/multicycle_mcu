@@ -1,20 +1,37 @@
 # RISC-V 32-bit Multicycle MCU
 
 ## Author 
+
 By Jack Krammer on March 16, 2025 for Cal Poly CPE 233
 
 ## Introduction
+
 A multicycle MCU capable of running assembly programs based on the 32-bit RISC-V ISA. This project utilizes SystemVerilog and RISC-V assembly code and was developed in Vivado for a Basys 3 Artix-7 FPGA board. The MCU also provides functionality to interact with board inputs and outputs via memory mapped IO.
+
 
 ## Description
 
 ### MCU Architecture Diagram
 
-add image here, w descriptive figure title
+<div align='center'/>
+
+<img src="images/mcu_architecture.png" alt="mcu architecture diagram" width="600">
+
+**Figure 1.** MCU architecture with modules and connections.
+
+</div>
+
 
 ### Memory Map
 
-add image here, w descriptive figure title
+<div align='center'>
+
+<img src="images/memory_map.png" alt="mcu architecture diagram" width="200">
+
+**Figure 2.** Memory address range the MCU was designed to utilize.
+
+</div>
+
 
 ### Module Hierarchy
 
@@ -37,11 +54,14 @@ add image here, w descriptive figure title
     - debounce_button.sv
 - basys3constraints.xdc
 
+
 ### Module Descriptions
 
 OTTER_wrapper.sv
 - asdfasdf
 
+
 ## Acknowledegments
 
 This project was created with the guidance and help of Professor Joseph Callenes at Cal Poly for CPE 233 (Computer Design and Assembly Language Programming).
+
